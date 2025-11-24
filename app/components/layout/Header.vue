@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
+import NowIPLogo from '../img/NowIPLogo.vue';
 
 const route = useRoute()
 
@@ -28,10 +29,10 @@ const items = computed<NavigationMenuItem[]>(() => [
 </script>
 
 <template>
-    <UHeader title="NowIP">
-        <!-- <template #title>
-            <Logo class="h-6 w-auto" />
-        </template> -->
+    <UHeader>
+        <template #title>
+            <NowIPLogo class="h-6 w-auto" />
+        </template>
 
         <UNavigationMenu :items="items" />
 
