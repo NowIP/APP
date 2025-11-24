@@ -2,7 +2,7 @@
 import PocketBase from 'pocketbase';
 
 export default defineNuxtPlugin(async () => {
-    const pb = new PocketBase(useRuntimeConfig().public.pocketbaseUrl);
+    const pb = new PocketBase('http://127.0.0.1:8090');
 
     const cookie = useCookie('pb_auth', {
         path: '/',
@@ -13,10 +13,12 @@ export default defineNuxtPlugin(async () => {
     })
 
     // load the store data from the cookie value
-    pb.authStore.save((cookie.value as any)?.token, (cookie.value as any).record);
+    // @ts-ignore
+    pb.authStore.save(cookie.value?.token, cookie.value?.record);
 
     // send back the default 'pb_auth' cookie to the client with the latest store state
-    pb.authStore.onChange(() => { //@ts-ignore
+    pb.authStore.onChange(() => {
+        // @ts-ignore
         cookie.value = {
             token: pb.authStore.token,
             record: pb.authStore.record,
