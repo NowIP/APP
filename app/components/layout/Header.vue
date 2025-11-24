@@ -28,10 +28,10 @@ const items = computed<NavigationMenuItem[]>(() => [
 </script>
 
 <template>
-    <UHeader>
-        <template #title>
+    <UHeader title="NowIP">
+        <!-- <template #title>
             <Logo class="h-6 w-auto" />
-        </template>
+        </template> -->
 
         <UNavigationMenu :items="items" />
 
