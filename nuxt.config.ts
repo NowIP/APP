@@ -16,8 +16,16 @@ export default defineNuxtConfig({
 
 	runtimeConfig: {
 		public: {
-			pocketbaseUrl: process.env.NOWAPI_API_URL || 'http://localhost:3003',
+			apiUrl: process.env.NOWAPI_API_URL || 'http://localhost:3003',
+		}
+	},
+
+	vite: {
+		server: {
+			allowedHosts: [
+				"nowip-app-test.tun.is-on.net"
+			]
+
 		}
 	}
-
 });
