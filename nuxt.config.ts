@@ -15,9 +15,8 @@ export default defineNuxtConfig({
 	},
 
 	runtimeConfig: {
-		pocketbaseApiKey: process.env.POCKETBASE_API_KEY,
 		public: {
-			pocketbaseUrl: process.env.POCKETBASE_URL || 'http://127.0.0.1:8090'
+			pocketbaseUrl: process.env.NOWAPI_API_URL || 'http://localhost:3003',
 		}
 	}
 
