@@ -6,6 +6,10 @@ export default defineAppConfig({
         colors: {
             primary: 'cyan',
             secondary: 'purple'
-        },
+        }
+    },
+    theme: {
+        radius: 0.25,
+        blackAsPrimary: false
     }
 })
