@@ -597,10 +597,6 @@ export type PutAccountData = {
     body?: {
         username?: string;
         email?: string;
-        /**
-         * New password for the account (at least 8 characters)
-         */
-        password?: string;
     };
     path?: never;
     query?: never;
@@ -631,3 +627,51 @@ export type PutAccountResponses = {
 };
 
 export type PutAccountResponse = PutAccountResponses[keyof PutAccountResponses];
+
+export type PutAccountPasswordData = {
+    body?: {
+        /**
+         * Current password of the account
+         */
+        current_password: string;
+        /**
+         * New password for the account (at least 8 characters)
+         */
+        new_password: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/account/password';
+};
+
+export type PutAccountPasswordErrors = {
+    /**
+     * Bad Request: Syntax or validation error in request
+     */
+    400: {
+        success: false;
+        message: 'Bad Request: Syntax or validation error in request';
+    };
+    /**
+     * Current password is incorrect
+     */
+    401: {
+        success: false;
+        message: 'Current password is incorrect';
+    };
+};
+
+export type PutAccountPasswordError = PutAccountPasswordErrors[keyof PutAccountPasswordErrors];
+
+export type PutAccountPasswordResponses = {
+    /**
+     * Password changed successfully
+     */
+    200: {
+        success: true;
+        message: 'Password changed successfully';
+        data: null;
+    };
+};
+
+export type PutAccountPasswordResponse = PutAccountPasswordResponses[keyof PutAccountPasswordResponses];

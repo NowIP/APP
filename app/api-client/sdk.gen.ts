@@ -2,7 +2,7 @@
 
 import type { Client, Composable, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteAccountData, DeleteAccountError, DeleteAccountResponse, DeleteDomainsDomainIdData, DeleteDomainsDomainIdError, DeleteDomainsDomainIdRecordsRecordIdData, DeleteDomainsDomainIdRecordsRecordIdError, DeleteDomainsDomainIdRecordsRecordIdResponse, DeleteDomainsDomainIdResponse, GetAccountData, GetAccountResponse, GetAuthSessionData, GetAuthSessionError, GetAuthSessionResponse, GetDomainsData, GetDomainsDomainIdData, GetDomainsDomainIdError, GetDomainsDomainIdRecordsData, GetDomainsDomainIdRecordsRecordIdData, GetDomainsDomainIdRecordsRecordIdError, GetDomainsDomainIdRecordsRecordIdResponse, GetDomainsDomainIdRecordsResponse, GetDomainsDomainIdResponse, GetDomainsResponse, GetNicUpdateData, GetNicUpdateError, GetNicUpdateResponse, PostAuthLoginData, PostAuthLoginError, PostAuthLoginResponse, PostAuthLogoutData, PostAuthLogoutError, PostAuthLogoutResponse, PostDomainsData, PostDomainsDomainIdRecordsData, PostDomainsDomainIdRecordsError, PostDomainsDomainIdRecordsResponse, PostDomainsError, PostDomainsResponse, PutAccountData, PutAccountError, PutAccountResponse, PutDomainsDomainIdData, PutDomainsDomainIdError, PutDomainsDomainIdRecordsRecordIdData, PutDomainsDomainIdRecordsRecordIdError, PutDomainsDomainIdRecordsRecordIdResponse, PutDomainsDomainIdResponse } from './types.gen';
+import type { DeleteAccountData, DeleteAccountError, DeleteAccountResponse, DeleteDomainsDomainIdData, DeleteDomainsDomainIdError, DeleteDomainsDomainIdRecordsRecordIdData, DeleteDomainsDomainIdRecordsRecordIdError, DeleteDomainsDomainIdRecordsRecordIdResponse, DeleteDomainsDomainIdResponse, GetAccountData, GetAccountResponse, GetAuthSessionData, GetAuthSessionError, GetAuthSessionResponse, GetDomainsData, GetDomainsDomainIdData, GetDomainsDomainIdError, GetDomainsDomainIdRecordsData, GetDomainsDomainIdRecordsRecordIdData, GetDomainsDomainIdRecordsRecordIdError, GetDomainsDomainIdRecordsRecordIdResponse, GetDomainsDomainIdRecordsResponse, GetDomainsDomainIdResponse, GetDomainsResponse, GetNicUpdateData, GetNicUpdateError, GetNicUpdateResponse, PostAuthLoginData, PostAuthLoginError, PostAuthLoginResponse, PostAuthLogoutData, PostAuthLogoutError, PostAuthLogoutResponse, PostDomainsData, PostDomainsDomainIdRecordsData, PostDomainsDomainIdRecordsError, PostDomainsDomainIdRecordsResponse, PostDomainsError, PostDomainsResponse, PutAccountData, PutAccountError, PutAccountPasswordData, PutAccountPasswordError, PutAccountPasswordResponse, PutAccountResponse, PutDomainsDomainIdData, PutDomainsDomainIdError, PutDomainsDomainIdRecordsRecordIdData, PutDomainsDomainIdRecordsRecordIdError, PutDomainsDomainIdRecordsRecordIdResponse, PutDomainsDomainIdResponse } from './types.gen';
 
 export type Options<TComposable extends Composable = '$fetch', TData extends TDataShape = TDataShape, ResT = unknown, DefaultT = undefined> = Options2<TComposable, TData, ResT, DefaultT> & {
     /**
@@ -217,6 +217,21 @@ export const getAccount = <TComposable extends Composable = '$fetch', DefaultT e
 export const putAccount = <TComposable extends Composable = '$fetch', DefaultT extends PutAccountResponse = PutAccountResponse>(options: Options<TComposable, PutAccountData, PutAccountResponse, DefaultT>) => (options.client ?? client).put<TComposable, PutAccountResponse | DefaultT, PutAccountError, DefaultT>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/account',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Change account password
+ *
+ * Change the password of the authenticated user's account.
+ */
+export const putAccountPassword = <TComposable extends Composable = '$fetch', DefaultT extends PutAccountPasswordResponse = PutAccountPasswordResponse>(options: Options<TComposable, PutAccountPasswordData, PutAccountPasswordResponse, DefaultT>) => (options.client ?? client).put<TComposable, PutAccountPasswordResponse | DefaultT, PutAccountPasswordError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/account/password',
     ...options,
     headers: {
         'Content-Type': 'application/json',
