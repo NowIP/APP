@@ -17,9 +17,12 @@ const user = ref({
 })
 
 async function logout() {
-	SessionStore.setUserInfo({} as any);
 	try {
 		const result = await useAPI().postAuthLogout({});
+
+		SessionStore.setUserInfo({} as any);
+
+		useCookie("session_token").value = null;
 
 		if (!result.success) {
 			toast.add({
