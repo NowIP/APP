@@ -41,10 +41,11 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         updateAPIClient(result.data.token);
 
         const sessionToken = useCookie('session_token', {
-            path: '/',
-            httpOnly: true,
-            secure: true,
-            sameSite: 'lax'
+            path:     '/',
+            secure:   true,
+            sameSite: 'strict',
+            httpOnly: false,
+            maxAge:   604800,
         });
 
         sessionToken.value = result.data.token;
