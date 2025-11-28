@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
 definePageMeta({
-    middleware: ['auth'],
     title: 'Home',
     meta: [
         { name: 'description', content: 'Welcome to Nuxt 4' }
