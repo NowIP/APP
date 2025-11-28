@@ -1,8 +1,14 @@
 <script setup lang="ts">
 
-// const data = await useAPI().getDomains({});
+definePageMeta({
+    middleware: ['auth'],
+    title: 'Home',
+    meta: [
+        { name: 'description', content: 'Welcome to Nuxt 4' }
+    ]
+});
 
-const data = "No data fetched yet.";
+const data = await useAPI().getDomains({});
 
 </script>
 

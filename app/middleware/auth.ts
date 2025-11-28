@@ -7,7 +7,7 @@ export default defineNuxtRouteMiddleware(async(to) => {
 
         const response = await useAPI().getAuthSession({});
 
-        if (response.status !== 'OK' || !response.data) {
+        if (!response.success) {
             return;
         }
 
@@ -16,9 +16,9 @@ export default defineNuxtRouteMiddleware(async(to) => {
         return navigateTo('/');
     }
 
-    const response = await useAPI('/api/auth/session');
+    const response = await useAPI().getAuthSession({});
 
-    if (response.status !== 'OK' || !response.data) {
+    if (!response.success) {
         return navigateTo('/auth/login?url=' + encodeURIComponent(to.fullPath));
     }
 
