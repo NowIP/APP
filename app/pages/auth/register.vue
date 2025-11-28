@@ -2,6 +2,14 @@
 import * as z from 'zod';
 import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 
+definePageMeta({
+    layout: 'auth',
+    title: 'Register | NowIP',
+    meta: [
+        { name: 'description', content: 'Register a new account' }
+    ]
+});
+
 const toast = useToast()
 
 const fields: AuthFormField[] = [{

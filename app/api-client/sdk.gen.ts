@@ -2,7 +2,7 @@
 
 import type { Client, Composable, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { DeleteDomainsDomainIdData, DeleteDomainsDomainIdError, DeleteDomainsDomainIdRecordsRecordIdData, DeleteDomainsDomainIdRecordsRecordIdError, DeleteDomainsDomainIdRecordsRecordIdResponse, DeleteDomainsDomainIdResponse, GetAuthSessionData, GetAuthSessionError, GetAuthSessionResponse, GetDomainsData, GetDomainsDomainIdData, GetDomainsDomainIdError, GetDomainsDomainIdRecordsData, GetDomainsDomainIdRecordsRecordIdData, GetDomainsDomainIdRecordsRecordIdError, GetDomainsDomainIdRecordsRecordIdResponse, GetDomainsDomainIdRecordsResponse, GetDomainsDomainIdResponse, GetDomainsResponse, GetNicUpdateData, GetNicUpdateError, GetNicUpdateResponse, PostAuthLoginData, PostAuthLoginError, PostAuthLoginResponse, PostAuthLogoutData, PostAuthLogoutError, PostAuthLogoutResponse, PostDomainsData, PostDomainsDomainIdRecordsData, PostDomainsDomainIdRecordsError, PostDomainsDomainIdRecordsResponse, PostDomainsError, PostDomainsResponse, PutDomainsDomainIdData, PutDomainsDomainIdError, PutDomainsDomainIdRecordsRecordIdData, PutDomainsDomainIdRecordsRecordIdError, PutDomainsDomainIdRecordsRecordIdResponse, PutDomainsDomainIdResponse } from './types.gen';
+import type { DeleteAccountData, DeleteAccountError, DeleteAccountResponse, DeleteDomainsDomainIdData, DeleteDomainsDomainIdError, DeleteDomainsDomainIdRecordsRecordIdData, DeleteDomainsDomainIdRecordsRecordIdError, DeleteDomainsDomainIdRecordsRecordIdResponse, DeleteDomainsDomainIdResponse, GetAccountData, GetAccountResponse, GetAuthSessionData, GetAuthSessionError, GetAuthSessionResponse, GetDomainsData, GetDomainsDomainIdData, GetDomainsDomainIdError, GetDomainsDomainIdRecordsData, GetDomainsDomainIdRecordsRecordIdData, GetDomainsDomainIdRecordsRecordIdError, GetDomainsDomainIdRecordsRecordIdResponse, GetDomainsDomainIdRecordsResponse, GetDomainsDomainIdResponse, GetDomainsResponse, GetNicUpdateData, GetNicUpdateError, GetNicUpdateResponse, PostAuthLoginData, PostAuthLoginError, PostAuthLoginResponse, PostAuthLogoutData, PostAuthLogoutError, PostAuthLogoutResponse, PostDomainsData, PostDomainsDomainIdRecordsData, PostDomainsDomainIdRecordsError, PostDomainsDomainIdRecordsResponse, PostDomainsError, PostDomainsResponse, PutAccountData, PutAccountError, PutAccountResponse, PutDomainsDomainIdData, PutDomainsDomainIdError, PutDomainsDomainIdRecordsRecordIdData, PutDomainsDomainIdRecordsRecordIdError, PutDomainsDomainIdRecordsRecordIdResponse, PutDomainsDomainIdResponse } from './types.gen';
 
 export type Options<TComposable extends Composable = '$fetch', TData extends TDataShape = TDataShape, ResT = unknown, DefaultT = undefined> = Options2<TComposable, TData, ResT, DefaultT> & {
     /**
@@ -180,6 +180,43 @@ export const getDomainsDomainIdRecordsRecordId = <TComposable extends Composable
 export const putDomainsDomainIdRecordsRecordId = <TComposable extends Composable = '$fetch', DefaultT extends PutDomainsDomainIdRecordsRecordIdResponse = PutDomainsDomainIdRecordsRecordIdResponse>(options: Options<TComposable, PutDomainsDomainIdRecordsRecordIdData, PutDomainsDomainIdRecordsRecordIdResponse, DefaultT>) => (options.client ?? client).put<TComposable, PutDomainsDomainIdRecordsRecordIdResponse | DefaultT, PutDomainsDomainIdRecordsRecordIdError, DefaultT>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/domains/{domainID}/records/{recordID}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+/**
+ * Delete account
+ *
+ * Permanently delete the authenticated user's account.
+ */
+export const deleteAccount = <TComposable extends Composable = '$fetch', DefaultT extends DeleteAccountResponse = DeleteAccountResponse>(options: Options<TComposable, DeleteAccountData, DeleteAccountResponse, DefaultT>) => (options.client ?? client).delete<TComposable, DeleteAccountResponse | DefaultT, DeleteAccountError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/account',
+    ...options
+});
+
+/**
+ * Get account information
+ *
+ * Retrieve information about the authenticated user's account.
+ */
+export const getAccount = <TComposable extends Composable = '$fetch', DefaultT extends GetAccountResponse = GetAccountResponse>(options: Options<TComposable, GetAccountData, GetAccountResponse, DefaultT>) => (options.client ?? client).get<TComposable, GetAccountResponse | DefaultT, unknown, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/account',
+    ...options
+});
+
+/**
+ * Update account information
+ *
+ * Update information about the authenticated user's account.
+ */
+export const putAccount = <TComposable extends Composable = '$fetch', DefaultT extends PutAccountResponse = PutAccountResponse>(options: Options<TComposable, PutAccountData, PutAccountResponse, DefaultT>) => (options.client ?? client).put<TComposable, PutAccountResponse | DefaultT, PutAccountError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/account',
     ...options,
     headers: {
         'Content-Type': 'application/json',

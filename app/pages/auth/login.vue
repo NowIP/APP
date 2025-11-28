@@ -2,6 +2,14 @@
 import * as z from 'zod';
 import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 
+definePageMeta({
+    layout: 'auth',
+    title: 'Login | NowIP',
+    meta: [
+        { name: 'description', content: 'Login to your account' }
+    ]
+});
+
 const route = useRoute()
 const redirectUrl = route.query.url || '/';
 
@@ -50,7 +58,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
 
         sessionToken.value = result.data.token;
 
-        SessionStore.setUserInfo(result.data);
+        await SessionStore.fetchAndSetUserInfo();
 
         toast.add({
             title: 'Login Successful',

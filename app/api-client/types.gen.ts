@@ -536,3 +536,98 @@ export type PutDomainsDomainIdRecordsRecordIdResponses = {
 };
 
 export type PutDomainsDomainIdRecordsRecordIdResponse = PutDomainsDomainIdRecordsRecordIdResponses[keyof PutDomainsDomainIdRecordsRecordIdResponses];
+
+export type DeleteAccountData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/account';
+};
+
+export type DeleteAccountErrors = {
+    /**
+     * Bad Request: Syntax or validation error in request
+     */
+    400: {
+        success: false;
+        message: 'Bad Request: Syntax or validation error in request';
+    };
+};
+
+export type DeleteAccountError = DeleteAccountErrors[keyof DeleteAccountErrors];
+
+export type DeleteAccountResponses = {
+    /**
+     * Account deleted successfully
+     */
+    200: {
+        success: true;
+        message: 'Account deleted successfully';
+        data: null;
+    };
+};
+
+export type DeleteAccountResponse = DeleteAccountResponses[keyof DeleteAccountResponses];
+
+export type GetAccountData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/account';
+};
+
+export type GetAccountResponses = {
+    /**
+     * Account information retrieved successfully
+     */
+    200: {
+        success: true;
+        message: 'Account information retrieved successfully';
+        data: {
+            id: number;
+            username: string;
+            email: string;
+        };
+    };
+};
+
+export type GetAccountResponse = GetAccountResponses[keyof GetAccountResponses];
+
+export type PutAccountData = {
+    body?: {
+        username?: string;
+        email?: string;
+        /**
+         * New password for the account (at least 8 characters)
+         */
+        password?: string;
+    };
+    path?: never;
+    query?: never;
+    url: '/account';
+};
+
+export type PutAccountErrors = {
+    /**
+     * Bad Request: Syntax or validation error in request
+     */
+    400: {
+        success: false;
+        message: 'Bad Request: Syntax or validation error in request';
+    };
+};
+
+export type PutAccountError = PutAccountErrors[keyof PutAccountErrors];
+
+export type PutAccountResponses = {
+    /**
+     * Account information updated successfully
+     */
+    200: {
+        success: true;
+        message: 'Account information updated successfully';
+        data: null;
+    };
+};
+
+export type PutAccountResponse = PutAccountResponses[keyof PutAccountResponses];
