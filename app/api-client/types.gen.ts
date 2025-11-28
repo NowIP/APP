@@ -118,6 +118,38 @@ export type GetAuthSessionResponses = {
 
 export type GetAuthSessionResponse = GetAuthSessionResponses[keyof GetAuthSessionResponses];
 
+export type PostAuthLogoutData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/auth/logout';
+};
+
+export type PostAuthLogoutErrors = {
+    /**
+     * Unauthorized: Invalid or missing session token
+     */
+    401: {
+        success: false;
+        message: 'Unauthorized: Invalid or missing session token';
+    };
+};
+
+export type PostAuthLogoutError = PostAuthLogoutErrors[keyof PostAuthLogoutErrors];
+
+export type PostAuthLogoutResponses = {
+    /**
+     * Logout successful
+     */
+    200: {
+        success: true;
+        message: 'Logout successful';
+        data: null;
+    };
+};
+
+export type PostAuthLogoutResponse = PostAuthLogoutResponses[keyof PostAuthLogoutResponses];
+
 export type GetDomainsData = {
     body?: never;
     path?: never;
