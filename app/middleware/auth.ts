@@ -3,26 +3,17 @@ import { useAPI } from "@/composables/useAPI";
 
 export default defineNuxtRouteMiddleware(async(to) => {
 
+    const token = useCookie("session_token").value;
+
     if (to.path.startsWith('/auth')) {
-
-        const response = await useAPI().getAuthSession({});
-
-        if (!response.success) {
+        if (!token) {
             return;
         }
-
-        SessionStore.setUserInfo(response.data);
-
         return navigateTo('/');
     }
 
-    const response = await useAPI().getAuthSession({});
-
-    if (!response.success) {
+    if (!token) {
         return navigateTo('/auth/login?url=' + encodeURIComponent(to.fullPath));
     }
-
-    SessionStore.setUserInfo(response.data);
-
-    return;
+    
 });

@@ -37,8 +37,6 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     const result = await useAPI().postAuthLogin({ body: payload.data });
     
     if (result.success) {
-
-        SessionStore.setUserInfo(result.data);
         
         updateAPIClient(result.data.token);
 
@@ -50,6 +48,8 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
         });
 
         sessionToken.value = result.data.token;
+
+        SessionStore.setUserInfo(result.data);
 
         toast.add({
             title: 'Login Successful',
