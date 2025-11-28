@@ -2,6 +2,9 @@
 import * as z from 'zod';
 import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 
+const route = useRoute()
+const redirectUrl = route.query.url || '/';
+
 const toast = useToast();
 
 const fields: AuthFormField[] = [{
@@ -30,9 +33,15 @@ const schema = z.object({
 type Schema = z.output<typeof schema>
 
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
+
     const result = await useAPI().postAuthLogin({ body: payload.data });
+    
     if (result.success) {
+
+        SessionStore.setUserInfo(result.data);
         
+        updateAPIClient(result.data.token);
+
         const sessionToken = useCookie('session_token', {
             path: '/',
             httpOnly: true,
@@ -47,7 +56,9 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
             description: 'You have been logged in successfully.'
         });
         
-        await navigateTo('/');
+        await navigateTo(redirectUrl.toString());
+        return;
+
     } else {
         toast.add({
             title: 'Login Failed',
