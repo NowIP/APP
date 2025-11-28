@@ -33,14 +33,14 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     const result = await useAPI().postAuthLogin({ body: payload.data });
     if (result.success) {
         
-        const session = useCookie('session_token', {
+        const sessionToken = useCookie('session_token', {
             path: '/',
             httpOnly: true,
             secure: true,
             sameSite: 'lax'
         });
 
-        session.value = result.data.sessionToken;
+        sessionToken.value = result.data.token;
 
         toast.add({
             title: 'Login Successful',

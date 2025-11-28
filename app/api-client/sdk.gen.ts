@@ -2,7 +2,7 @@
 
 import type { Client, Composable, Options as Options2, TDataShape } from './client';
 import { client } from './client.gen';
-import type { GetDomainsData, GetDomainsDomainIdRecordsData, GetNicUpdateData, GetNicUpdateError, GetNicUpdateResponse, PostAuthLoginData, PostAuthLoginError, PostAuthLoginResponse, PostDomainsData, PostDomainsDomainIdRecordsData, PutDomainsDomainIdData, PutDomainsDomainIdRecordsRecordIdData } from './types.gen';
+import type { DeleteDomainsDomainIdData, DeleteDomainsDomainIdError, DeleteDomainsDomainIdRecordsRecordIdData, DeleteDomainsDomainIdRecordsRecordIdError, DeleteDomainsDomainIdRecordsRecordIdResponse, DeleteDomainsDomainIdResponse, GetAuthSessionData, GetAuthSessionError, GetAuthSessionResponse, GetDomainsData, GetDomainsDomainIdData, GetDomainsDomainIdError, GetDomainsDomainIdRecordsData, GetDomainsDomainIdRecordsRecordIdData, GetDomainsDomainIdRecordsRecordIdError, GetDomainsDomainIdRecordsRecordIdResponse, GetDomainsDomainIdRecordsResponse, GetDomainsDomainIdResponse, GetDomainsResponse, GetNicUpdateData, GetNicUpdateError, GetNicUpdateResponse, PostAuthLoginData, PostAuthLoginError, PostAuthLoginResponse, PostDomainsData, PostDomainsDomainIdRecordsData, PostDomainsDomainIdRecordsError, PostDomainsDomainIdRecordsResponse, PostDomainsError, PostDomainsResponse, PutDomainsDomainIdData, PutDomainsDomainIdError, PutDomainsDomainIdRecordsRecordIdData, PutDomainsDomainIdRecordsRecordIdError, PutDomainsDomainIdRecordsRecordIdResponse, PutDomainsDomainIdResponse } from './types.gen';
 
 export type Options<TComposable extends Composable = '$fetch', TData extends TDataShape = TDataShape, ResT = unknown, DefaultT = undefined> = Options2<TComposable, TData, ResT, DefaultT> & {
     /**
@@ -19,7 +19,7 @@ export type Options<TComposable extends Composable = '$fetch', TData extends TDa
 };
 
 /**
- * DDNSv2 Update Endpoint
+ * DDNSv2 Update
  *
  * Endpoint for updating domain IP addresses using the DDNSv2 protocol.
  */
@@ -40,17 +40,34 @@ export const postAuthLogin = <TComposable extends Composable = '$fetch', Default
 });
 
 /**
- * List Domains
+ * Get Current Session
+ *
+ * Retrieve the current user's session information
+ */
+export const getAuthSession = <TComposable extends Composable = '$fetch', DefaultT extends GetAuthSessionResponse = GetAuthSessionResponse>(options: Options<TComposable, GetAuthSessionData, GetAuthSessionResponse, DefaultT>) => (options.client ?? client).get<TComposable, GetAuthSessionResponse | DefaultT, GetAuthSessionError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/auth/session',
+    ...options
+});
+
+/**
+ * Get All Domains
  *
  * Retrieve a list of all domains owned by the authenticated user.
  */
-export const getDomains = <TComposable extends Composable = '$fetch', DefaultT = undefined>(options: Options<TComposable, GetDomainsData, unknown, DefaultT>) => (options.client ?? client).get<TComposable, unknown | DefaultT, unknown, DefaultT>({
-    security: [{ name: 'Authorization', type: 'apiKey' }],
+export const getDomains = <TComposable extends Composable = '$fetch', DefaultT extends GetDomainsResponse = GetDomainsResponse>(options: Options<TComposable, GetDomainsData, GetDomainsResponse, DefaultT>) => (options.client ?? client).get<TComposable, GetDomainsResponse | DefaultT, unknown, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/domains',
     ...options
 });
 
-export const postDomains = <TComposable extends Composable = '$fetch', DefaultT = undefined>(options: Options<TComposable, PostDomainsData, unknown, DefaultT>) => (options.client ?? client).post<TComposable, unknown | DefaultT, unknown, DefaultT>({
+/**
+ * Create Domain
+ *
+ * Create a new domain under the authenticated user's account.
+ */
+export const postDomains = <TComposable extends Composable = '$fetch', DefaultT extends PostDomainsResponse = PostDomainsResponse>(options: Options<TComposable, PostDomainsData, PostDomainsResponse, DefaultT>) => (options.client ?? client).post<TComposable, PostDomainsResponse | DefaultT, PostDomainsError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/domains',
     ...options,
     headers: {
@@ -59,7 +76,35 @@ export const postDomains = <TComposable extends Composable = '$fetch', DefaultT 
     }
 });
 
-export const putDomainsDomainId = <TComposable extends Composable = '$fetch', DefaultT = undefined>(options: Options<TComposable, PutDomainsDomainIdData, unknown, DefaultT>) => (options.client ?? client).put<TComposable, unknown | DefaultT, unknown, DefaultT>({
+/**
+ * Delete Domain
+ *
+ * Delete a specific domain owned by the authenticated user.
+ */
+export const deleteDomainsDomainId = <TComposable extends Composable = '$fetch', DefaultT extends DeleteDomainsDomainIdResponse = DeleteDomainsDomainIdResponse>(options: Options<TComposable, DeleteDomainsDomainIdData, DeleteDomainsDomainIdResponse, DefaultT>) => (options.client ?? client).delete<TComposable, DeleteDomainsDomainIdResponse | DefaultT, DeleteDomainsDomainIdError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/domains/{domainID}',
+    ...options
+});
+
+/**
+ * Get Domain
+ *
+ * Retrieve details of a specific domain owned by the authenticated user.
+ */
+export const getDomainsDomainId = <TComposable extends Composable = '$fetch', DefaultT extends GetDomainsDomainIdResponse = GetDomainsDomainIdResponse>(options: Options<TComposable, GetDomainsDomainIdData, GetDomainsDomainIdResponse, DefaultT>) => (options.client ?? client).get<TComposable, GetDomainsDomainIdResponse | DefaultT, GetDomainsDomainIdError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/domains/{domainID}',
+    ...options
+});
+
+/**
+ * Update Domain
+ *
+ * Update details of a specific domain owned by the authenticated user.
+ */
+export const putDomainsDomainId = <TComposable extends Composable = '$fetch', DefaultT extends PutDomainsDomainIdResponse = PutDomainsDomainIdResponse>(options: Options<TComposable, PutDomainsDomainIdData, PutDomainsDomainIdResponse, DefaultT>) => (options.client ?? client).put<TComposable, PutDomainsDomainIdResponse | DefaultT, PutDomainsDomainIdError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/domains/{domainID}',
     ...options,
     headers: {
@@ -68,9 +113,24 @@ export const putDomainsDomainId = <TComposable extends Composable = '$fetch', De
     }
 });
 
-export const getDomainsDomainIdRecords = <TComposable extends Composable = '$fetch', DefaultT = undefined>(options: Options<TComposable, GetDomainsDomainIdRecordsData, unknown, DefaultT>) => (options.client ?? client).get<TComposable, unknown | DefaultT, unknown, DefaultT>({ url: '/domains/{domainID}/records', ...options });
+/**
+ * Get All DNS Records for Domain
+ *
+ * Retrieve a list of all additional DNS records for the specified domain owned by the authenticated user.
+ */
+export const getDomainsDomainIdRecords = <TComposable extends Composable = '$fetch', DefaultT extends GetDomainsDomainIdRecordsResponse = GetDomainsDomainIdRecordsResponse>(options: Options<TComposable, GetDomainsDomainIdRecordsData, GetDomainsDomainIdRecordsResponse, DefaultT>) => (options.client ?? client).get<TComposable, GetDomainsDomainIdRecordsResponse | DefaultT, unknown, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/domains/{domainID}/records',
+    ...options
+});
 
-export const postDomainsDomainIdRecords = <TComposable extends Composable = '$fetch', DefaultT = undefined>(options: Options<TComposable, PostDomainsDomainIdRecordsData, unknown, DefaultT>) => (options.client ?? client).post<TComposable, unknown | DefaultT, unknown, DefaultT>({
+/**
+ * Create DNS Record for Domain
+ *
+ * Create a new additional DNS record for the specified domain owned by the authenticated user.
+ */
+export const postDomainsDomainIdRecords = <TComposable extends Composable = '$fetch', DefaultT extends PostDomainsDomainIdRecordsResponse = PostDomainsDomainIdRecordsResponse>(options: Options<TComposable, PostDomainsDomainIdRecordsData, PostDomainsDomainIdRecordsResponse, DefaultT>) => (options.client ?? client).post<TComposable, PostDomainsDomainIdRecordsResponse | DefaultT, PostDomainsDomainIdRecordsError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/domains/{domainID}/records',
     ...options,
     headers: {
@@ -79,7 +139,35 @@ export const postDomainsDomainIdRecords = <TComposable extends Composable = '$fe
     }
 });
 
-export const putDomainsDomainIdRecordsRecordId = <TComposable extends Composable = '$fetch', DefaultT = undefined>(options: Options<TComposable, PutDomainsDomainIdRecordsRecordIdData, unknown, DefaultT>) => (options.client ?? client).put<TComposable, unknown | DefaultT, unknown, DefaultT>({
+/**
+ * Delete DNS Record
+ *
+ * Delete a specific additional DNS record for the specified domain owned by the authenticated user.
+ */
+export const deleteDomainsDomainIdRecordsRecordId = <TComposable extends Composable = '$fetch', DefaultT extends DeleteDomainsDomainIdRecordsRecordIdResponse = DeleteDomainsDomainIdRecordsRecordIdResponse>(options: Options<TComposable, DeleteDomainsDomainIdRecordsRecordIdData, DeleteDomainsDomainIdRecordsRecordIdResponse, DefaultT>) => (options.client ?? client).delete<TComposable, DeleteDomainsDomainIdRecordsRecordIdResponse | DefaultT, DeleteDomainsDomainIdRecordsRecordIdError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/domains/{domainID}/records/{recordID}',
+    ...options
+});
+
+/**
+ * Get DNS Record
+ *
+ * Retrieve details of a specific additional DNS record for the specified domain owned by the authenticated user.
+ */
+export const getDomainsDomainIdRecordsRecordId = <TComposable extends Composable = '$fetch', DefaultT extends GetDomainsDomainIdRecordsRecordIdResponse = GetDomainsDomainIdRecordsRecordIdResponse>(options: Options<TComposable, GetDomainsDomainIdRecordsRecordIdData, GetDomainsDomainIdRecordsRecordIdResponse, DefaultT>) => (options.client ?? client).get<TComposable, GetDomainsDomainIdRecordsRecordIdResponse | DefaultT, GetDomainsDomainIdRecordsRecordIdError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/domains/{domainID}/records/{recordID}',
+    ...options
+});
+
+/**
+ * Update DNS Record
+ *
+ * Update a specific additional DNS record for the specified domain owned by the authenticated user.
+ */
+export const putDomainsDomainIdRecordsRecordId = <TComposable extends Composable = '$fetch', DefaultT extends PutDomainsDomainIdRecordsRecordIdResponse = PutDomainsDomainIdRecordsRecordIdResponse>(options: Options<TComposable, PutDomainsDomainIdRecordsRecordIdData, PutDomainsDomainIdRecordsRecordIdResponse, DefaultT>) => (options.client ?? client).put<TComposable, PutDomainsDomainIdRecordsRecordIdResponse | DefaultT, PutDomainsDomainIdRecordsRecordIdError, DefaultT>({
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/domains/{domainID}/records/{recordID}',
     ...options,
     headers: {

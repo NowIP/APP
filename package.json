@@ -6,7 +6,7 @@
         "build": "nuxt build",
         "start": "bun run .output/server/index.mjs",
         "dev": "nuxt dev",
-        "openapi-ts": "openapi-ts",
+        "api-client:generate": "openapi-ts",
         "generate": "nuxt generate",
         "preview": "nuxt preview",
         "postinstall": "nuxt prepare"
