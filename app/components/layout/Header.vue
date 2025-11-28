@@ -37,8 +37,8 @@ const items = computed<NavigationMenuItem[]>(() => [
         <UNavigationMenu :items="items" />
 
         <template #right>
-            <ThemePicker />
-            <!-- <UColorModeButton /> -->
+            <!-- <ThemePicker /> -->
+            <UColorModeButton />
 
             <UTooltip text="Open on GitHub" :kbds="['meta', 'G']">
                 <UButton color="neutral" variant="ghost" to="https://github.com/nuxt/ui" target="_blank"
