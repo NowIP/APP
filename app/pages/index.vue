@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { DomainStore } from '~/utils/stores/domainStore';
+
 
 useSeoMeta({
     title: 'Dashboard | NowIP',
@@ -7,7 +9,7 @@ useSeoMeta({
 
 navigateTo('/domains');
 
-// const data = await useAPI().getDomains({});
+const domains = DomainStore.use();
 
 </script>
 
