@@ -5,13 +5,6 @@ import NowIPLogo from '~/components/img/NowIPLogo.vue'
 import { DomainStore } from '../utils/stores/domainStore';
 
 const open = ref(false)
-const expandedItems = ref<string[]>(['domains'])
-
-watch(expandedItems, (value) => {
-    if (!value.includes('domains')) {
-        expandedItems.value = [...value, 'domains']
-    }
-})
 
 const domains = await DomainStore.use();
 
@@ -23,9 +16,21 @@ const sortedDomains = computed(() => {
 });
 
 // Show either each domain shortcut or an empty-state call-to-action.
-const domainChildren = computed(() => {
+const domainSection = computed<NavigationMenuItem[]>(() => {
+    const section: NavigationMenuItem[] = [
+        {
+            label: 'Domains',
+            to: '/domains',
+            icon: 'i-lucide-globe',
+        },
+        {
+            label: 'Your Domains:',
+            type: 'label'
+        }
+    ];
+
     if (!sortedDomains.value.length) {
-        return [
+        section.push(
             {
                 label: 'No domains yet',
                 description: 'Add a domain to start managing DNS records.',
@@ -40,17 +45,23 @@ const domainChildren = computed(() => {
                     open.value = false
                 }
             }
-        ]
+        );
+        return section;
     }
 
-    return sortedDomains.value.map((domain: GetDomainsResponse["data"][0]) => ({
-        label: getFullDomain(domain.subdomain),
-        icon: 'i-lucide-globe-2',
-        to: `/domains/${domain.id}`,
-        onSelect: () => {
-            open.value = false
-        }
-    }));
+    section.push(
+        ...sortedDomains.value.map((domain: GetDomainsResponse["data"][0]) => ({
+            label: getFullDomain(domain.subdomain),
+            icon: 'i-lucide-globe-2',
+            to: `/domains/${domain.id}`,
+            onSelect: () => {
+                open.value = false
+            }
+        }))
+        
+    );
+
+    return section;
 });
 
 const links = computed<NavigationMenuItem[]>(() => [
@@ -62,22 +73,12 @@ const links = computed<NavigationMenuItem[]>(() => [
             open.value = false
         }
     },
-    {
-        label: 'Domains',
-        icon: 'i-lucide-globe',
-        badge: sortedDomains.value.length || undefined,
-        to: '/domains',
-        defaultOpen: true,
-        value: 'domains',
-        onSelect: () => {
-            open.value = false
-        },
-        children: domainChildren.value
-    },
+    ...domainSection.value,
     {
         label: 'Settings',
         to: '/settings',
         icon: 'i-lucide-settings',
+        class: 'mt-4 pt-4 border-t-2 border-default',
         defaultOpen: true,
         type: 'trigger',
         children: [
@@ -112,8 +113,7 @@ const links = computed<NavigationMenuItem[]>(() => [
             </template>
 
             <template #default="{ collapsed }">
-                <UNavigationMenu v-model="expandedItems" type="multiple" :collapsed="collapsed" :items="links"
-                    orientation="vertical" tooltip popover />
+                <UNavigationMenu :collapsed="collapsed" :items="links" orientation="vertical" tooltip popover />
             </template>
 
             <template #footer="{ collapsed }">
