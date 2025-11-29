@@ -15,6 +15,12 @@ export class UserStore {
         return this.userInfo;
     }
 
+    static async fetchAndSetIfNeeded() {
+        if (!this.userInfo.id) {
+            await this.fetchAndSet();
+        }
+    }
+
     static set(userInfo: UserInfo) {
         for (const key in userInfo) {
             (this.userInfo as any)[key] = (userInfo as any)[key];

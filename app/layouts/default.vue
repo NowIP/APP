@@ -2,10 +2,21 @@
 import type { NavigationMenuItem } from '@nuxt/ui'
 import type { GetDomainsResponse } from '~/api-client';
 import NowIPLogo from '~/components/img/NowIPLogo.vue'
+import { DomainStore } from '../utils/stores/domainStore';
 
 const open = ref(false)
 
-const toast = useToast();
+const domains = await DomainStore.use();
+
+const domainChildren = computed<NavigationMenuItem[]>(() => {
+    return domains.map((domain: GetDomainsResponse["data"][0]) => ({
+        label: getFullDomain(domain.subdomain),
+        to: `/domains/${domain.id}`,
+        onSelect: () => {
+            open.value = false
+        }
+    }))
+})
 
 const links = reactive<NavigationMenuItem[]>([
     {
@@ -18,11 +29,12 @@ const links = reactive<NavigationMenuItem[]>([
     }, {
         label: 'Domains',
         icon: 'i-lucide-globe',
-        to: '/domains',
+        to: '/domains',        
+        defaultOpen: true,
         onSelect: () => {
             open.value = false
         },
-        children: []
+        children: domainChildren.value
     }, {
         label: 'Settings',
         to: '/settings',
