@@ -65,7 +65,7 @@ const statCards = computed(() => [
 
 const hasDomains = computed(() => domainStats.value.total > 0);
 
-const formatTimestamp = (value?: string | null) => {
+const formatTimestamp = (value?: number | null) => {
     if (!value) {
         return 'Never updated';
     }
@@ -163,7 +163,7 @@ const domainStatus = (domain: Domain) => {
                                                 {{ getFullDomain(domain.subdomain) }}
                                             </p>
                                         </div>
-                                        <UBadge v-bind="domainStatus(domain)" size="sm">{{ domainStatus(domain).label }}</UBadge>
+                                        <UBadge v-bind="domainStatus(domain) as any" size="sm">{{ domainStatus(domain).label }}</UBadge>
                                     </div>
                                 </template>
 
