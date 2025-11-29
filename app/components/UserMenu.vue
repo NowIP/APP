@@ -20,7 +20,7 @@ async function logout() {
 	try {
 		const result = await useAPI().postAuthLogout({});
 
-		SessionStore.setUserInfo({} as any);
+		SessionStore.clearUserInfo();
 
 		useCookie("session_token").value = null;
 

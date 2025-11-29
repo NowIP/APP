@@ -27,4 +27,9 @@ export class SessionStore {
         }
     }
 
+    static clearUserInfo() {
+        for (const key in this.userInfo) {
+            delete (this.userInfo as any)[key];
+        }
+    }
 }

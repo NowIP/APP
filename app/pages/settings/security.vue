@@ -6,7 +6,7 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 const toast = useToast();
 
 const passwordSchema = z.object({
-	current_password: z.string().min(8, 'Must be at least 8 characters'),
+	current_password: z.string(),
 	new_password: z.string().min(8, 'Must be at least 8 characters')
 })
 
@@ -29,7 +29,8 @@ async function onSubmit(event: FormSubmitEvent<PasswordSchema>) {
 
 	try {
 		const result = await useAPI().putAccountPassword({
-			body: event.data
+			body: event.data,
+			ignoreResponseError: true
 		});
 
 		if (result.success) {
@@ -38,7 +39,14 @@ async function onSubmit(event: FormSubmitEvent<PasswordSchema>) {
 				description: 'Your password has been successfully updated.',
 				icon: 'i-lucide-check',
 				color: 'success'
-			})
+			});
+
+			SessionStore.clearUserInfo();
+
+			useCookie("session_token").value = null;
+
+			// Redirect to login page
+			navigateTo('/auth/login');
 
 		} else {
 			toast.add({
