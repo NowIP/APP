@@ -14,9 +14,8 @@ const links = [
         }
     }, {
         label: 'Domains',
-        icon: 'i-lucide-inbox',
+        icon: 'i-lucide-globe',
         to: '/domains',
-        badge: '4',
         onSelect: () => {
             open.value = false
         }

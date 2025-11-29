@@ -1,10 +1,8 @@
 <script setup lang="ts">
 
-definePageMeta({
-    title: 'Home',
-    meta: [
-        { name: 'description', content: 'Welcome to Nuxt 4' }
-    ]
+useSeoMeta({
+    title: 'Domains | NowIP',
+    description: 'Manage your domains'
 });
 
 const data = await useAPI().getDomains({});
@@ -14,7 +12,7 @@ const data = await useAPI().getDomains({});
 <template>
     <UDashboardPanel id="home">
         <template #header>
-            <UDashboardNavbar title="Dashboard" :ui="{ right: 'gap-3' }">
+            <UDashboardNavbar title="Manage Domains" :ui="{ right: 'gap-3' }">
                 <template #leading>
                     <UDashboardSidebarCollapse />
                 </template>

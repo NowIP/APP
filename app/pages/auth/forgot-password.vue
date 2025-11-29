@@ -3,11 +3,12 @@ import * as z from 'zod';
 import type { FormSubmitEvent, AuthFormField, FormError } from '@nuxt/ui'
 
 definePageMeta({
-    layout: 'auth',
+    layout: 'auth'
+});
+
+useSeoMeta({
     title: 'Forgot Password | NowIP',
-    meta: [
-        { name: 'description', content: 'Reset your password' }
-    ]
+    description: 'Reset your password'
 });
 
 const toast = useToast();

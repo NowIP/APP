@@ -5,11 +5,12 @@ import type { FormSubmitEvent, AuthFormField } from '@nuxt/ui'
 const isSignupEnabled = useRuntimeConfig().public.isSignupEnabled;
 
 definePageMeta({
-    layout: 'auth',
+    layout: 'auth'
+});
+
+useSeoMeta({
     title: 'Login | NowIP',
-    meta: [
-        { name: 'description', content: 'Login to your account' }
-    ]
+    description: 'Login to your account'
 });
 
 const route = useRoute()

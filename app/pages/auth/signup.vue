@@ -7,11 +7,12 @@ if (!useRuntimeConfig().public.isSignupEnabled) {
 }
 
 definePageMeta({
-    layout: 'auth',
-    title: 'Login | NowIP',
-    meta: [
-        { name: 'description', content: 'Login to your account' }
-    ]
+    layout: 'auth'
+});
+
+useSeoMeta({
+    title: 'Sign Up | NowIP',
+    description: 'Create a new account'
 });
 
 const toast = useToast();
