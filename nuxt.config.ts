@@ -17,7 +17,8 @@ export default defineNuxtConfig({
 	runtimeConfig: {
 		public: {
 			apiUrl: process.env.NOWIP_API_URL || 'http://localhost:3003',
-			isSignupEnabled: process.env.NOWIP_APP_ENABLE_SIGNUP === 'true' ? true : false
+			isSignupEnabled: process.env.NOWIP_APP_ENABLE_SIGNUP === 'true' ? true : false,
+			baseDNSDomain: process.env.NOWIP_DNS_DOMAIN || 'dyn.is-on.net'
 		}
 	},
 
