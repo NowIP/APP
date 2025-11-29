@@ -32,7 +32,7 @@ const domainSection = computed<NavigationMenuItem>(() => {
         {
             label: 'Add domain',
             icon: 'i-lucide-plus',
-            to: '/domains?intent=create',
+            to: '/domains/new',
             onSelect: closeSidebar
         }
     ];

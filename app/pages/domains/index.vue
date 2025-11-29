@@ -107,7 +107,7 @@ const domainStatus = (domain: Domain) => {
         </template>
 
         <template #body>
-            <div class="flex flex-col gap-6 lg:gap-12 w-full lg:max-w-6xl mx-auto">
+            <div class="flex flex-col gap-4 sm:gap-6 lg:gap-12 w-full lg:max-w-6xl mx-auto">
                 <section class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                     <UCard v-for="stat in statCards" :key="stat.label"
                         class="relative overflow-hidden border border-default/40">

@@ -247,7 +247,7 @@ const copyValue = async (value: string, label: string) => {
 </script>
 
 <template>
-	<div class="flex flex-col gap-6 w-full lg:max-w-3xl mx-auto">
+	<div class="flex flex-col gap-6 w-full mx-auto">
 		<template v-if="isNewDomain">
 			<UAlert color="primary" icon="i-lucide-info" title="Create a NowIP domain"
 				description="Choose a unique subdomain. We'll generate the DDNS secret after creation." />

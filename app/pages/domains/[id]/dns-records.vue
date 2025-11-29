@@ -5,15 +5,15 @@ import * as z from 'zod'
 import type { FormSubmitEvent, TableColumn } from '@nuxt/ui'
 import type { GetDomainsDomainIdRecordsResponse, GetDomainsDomainIdResponse } from '~/api-client'
 import { getFullDomain } from '~/composables/getFullDomain'
+import { is } from 'zod/locales'
 
 type Domain = GetDomainsDomainIdResponse['data']
 type DomainRecord = GetDomainsDomainIdRecordsResponse['data'][number]
 
 const domain = inject<Domain>('domain');
 const domainId = inject<string>('domainId');
-const isNewDomain = inject<ComputedRef<boolean>>('isNewDomain');
 
-if (!domain || !domainId || !isNewDomain) {
+if (!domain || !domainId) {
     throw new Error('Domain context is missing.')
 }
 
@@ -75,11 +75,6 @@ const stringifyRecordData = (data: DomainRecord['record_data']) => {
 };
 
 const fetchRecords = async () => {
-    if (isNewDomain.value) {
-        records.value = []
-        return
-    }
-
     loadingRecords.value = true
     try {
         const result = await useAPI().getDomainsDomainIdRecords({
@@ -110,14 +105,8 @@ const fetchRecords = async () => {
     }
 };
 
-watch(() => isNewDomain.value, async (isNew) => {
-    if (isNew) {
-        records.value = []
-        return
-    }
 
-    await fetchRecords()
-}, { immediate: true })
+await fetchRecords()
 
 const handleRecordSubmit = async (event: FormSubmitEvent<RecordForm>) => {
     if (creatingRecord.value) {
@@ -280,13 +269,8 @@ const hasRecords = computed(() => records.value.length > 0);
 </script>
 
 <template>
-    <div class="flex flex-col gap-6 w-full lg:max-w-5xl mx-auto">
-        <template v-if="isNewDomain">
-            <UAlert color="warning" icon="i-lucide-alert-triangle" title="Create the domain first"
-                description="You need to save the domain before adding custom DNS records." />
-        </template>
-
-        <template v-else>
+    <div class="flex flex-col gap-6 w-full mx-auto">
+        <template>
             <UCard>
                 <template #header>
                     <div class="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">

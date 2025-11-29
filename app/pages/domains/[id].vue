@@ -7,6 +7,10 @@ const route = useRoute();
 const domainID = route.params.id as string;
 const isNewDomain = computed(() => domainID === 'new');
 
+if (isNewDomain.value && !useRoute().path.endsWith('/new')) {
+    navigateTo('/domains/new');
+} 
+
 type Domain = GetDomainsDomainIdResponse['data'];
 
 const domain = reactive<Domain>({
@@ -86,7 +90,7 @@ const panelTitle = computed(() => isNewDomain.value ? 'Create Domain' : 'Manage 
         </template>
 
         <template #body>
-            <div class="flex flex-col gap-4 sm:gap-6 lg:gap-12 w-full lg:max-w-2xl mx-auto">
+            <div class="flex flex-col gap-4 sm:gap-6 lg:gap-12 w-full lg:max-w-6xl mx-auto">
                 <NuxtPage />
             </div>
         </template>
