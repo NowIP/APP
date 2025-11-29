@@ -128,7 +128,16 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
                 :submit="{
                     label: 'Register',
                 }"
-                />
+            >
+                <template #footer>
+                    <div class="text-center text-sm">
+                        Already have an account?
+                        <NuxtLink to="/auth/login" class="text-primary-600 hover:underline">
+                            Login here
+                        </NuxtLink>
+                    </div>
+                </template>
+            </UAuthForm>
         </UPageCard>
     </div>
 </template>
