@@ -5,20 +5,55 @@ import NowIPLogo from '~/components/img/NowIPLogo.vue'
 import { DomainStore } from '../utils/stores/domainStore';
 
 const open = ref(false)
+const expandedItems = ref<string[]>(['domains'])
+
+watch(expandedItems, (value) => {
+    if (!value.includes('domains')) {
+        expandedItems.value = [...value, 'domains']
+    }
+})
 
 const domains = await DomainStore.use();
 
-const domainChildren = computed<NavigationMenuItem[]>(() => {
-    return domains.map((domain: GetDomainsResponse["data"][0]) => ({
+// Keep the sidebar list predictable by always sorting domains alphabetically.
+const sortedDomains = computed(() => {
+    return [...domains].sort((a, b) =>
+        getFullDomain(a.subdomain).localeCompare(getFullDomain(b.subdomain))
+    );
+});
+
+// Show either each domain shortcut or an empty-state call-to-action.
+const domainChildren = computed(() => {
+    if (!sortedDomains.value.length) {
+        return [
+            {
+                label: 'No domains yet',
+                description: 'Add a domain to start managing DNS records.',
+                icon: 'i-lucide-info',
+                disabled: true
+            },
+            {
+                label: 'Add domain',
+                icon: 'i-lucide-plus',
+                to: '/domains',
+                onSelect: () => {
+                    open.value = false
+                }
+            }
+        ]
+    }
+
+    return sortedDomains.value.map((domain: GetDomainsResponse["data"][0]) => ({
         label: getFullDomain(domain.subdomain),
+        icon: 'i-lucide-globe-2',
         to: `/domains/${domain.id}`,
         onSelect: () => {
             open.value = false
         }
-    }))
-})
+    }));
+});
 
-const links = reactive<NavigationMenuItem[]>([
+const links = computed<NavigationMenuItem[]>(() => [
     {
         label: 'Home',
         icon: 'i-lucide-house',
@@ -26,16 +61,20 @@ const links = reactive<NavigationMenuItem[]>([
         onSelect: () => {
             open.value = false
         }
-    }, {
+    },
+    {
         label: 'Domains',
         icon: 'i-lucide-globe',
-        to: '/domains',        
+        badge: sortedDomains.value.length || undefined,
+        to: '/domains',
         defaultOpen: true,
+        value: 'domains',
         onSelect: () => {
             open.value = false
         },
         children: domainChildren.value
-    }, {
+    },
+    {
         label: 'Settings',
         to: '/settings',
         icon: 'i-lucide-settings',
@@ -49,7 +88,8 @@ const links = reactive<NavigationMenuItem[]>([
                 onSelect: () => {
                     open.value = false
                 }
-            }, {
+            },
+            {
                 label: 'Security',
                 to: '/settings/security',
                 onSelect: () => {
@@ -72,7 +112,8 @@ const links = reactive<NavigationMenuItem[]>([
             </template>
 
             <template #default="{ collapsed }">
-                <UNavigationMenu :collapsed="collapsed" :items="links" orientation="vertical" tooltip popover />
+                <UNavigationMenu v-model="expandedItems" type="multiple" :collapsed="collapsed" :items="links"
+                    orientation="vertical" tooltip popover />
             </template>
 
             <template #footer="{ collapsed }">

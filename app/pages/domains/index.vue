@@ -29,10 +29,13 @@ const columns: TableColumn<Domain>[] = [
         cell: ({ row }) => `#${row.getValue('id')}`
     },
     {
-        accessorKey: 'date',
-        header: 'Date',
+        accessorKey: 'last_ddns_update',
+        header: 'Last DDNS Update',
         cell: ({ row }) => {
-            return new Date(row.getValue('date')).toLocaleString('en-US', {
+            if (!row.getValue('last_ddns_update')) {
+                return 'Never'
+            }
+            return new Date(row.getValue('last_ddns_update')).toLocaleString('en-US', {
                 day: 'numeric',
                 month: 'short',
                 hour: '2-digit',
@@ -42,23 +45,14 @@ const columns: TableColumn<Domain>[] = [
         }
     },
     {
-        accessorKey: 'status',
-        header: 'Status',
-        cell: ({ row }) => {
-            const color = {
-                paid: 'success' as const,
-                failed: 'error' as const,
-                refunded: 'neutral' as const
-            }[row.getValue('status') as string]
-
-            return h(UBadge, { class: 'capitalize', variant: 'subtle', color }, () =>
-                row.getValue('status')
-            )
-        }
+        accessorKey: 'last_ipv4',
+        header: 'Current IPv4',
+        cell: ({ row }) => row.getValue('last_ipv4') || 'N/A'
     },
     {
-        accessorKey: 'email',
-        header: 'Email'
+        accessorKey: "last_ipv6",
+        header: 'Current IPv6',
+        cell: ({ row }) => row.getValue('last_ipv6') || 'N/A'
     },
     {
         accessorKey: 'amount',
