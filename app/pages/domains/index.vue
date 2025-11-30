@@ -126,7 +126,7 @@ const domainStatus = (domain: Domain) => {
                     :title="`${domainStats.awaiting} domain${domainStats.awaiting === 1 ? '' : 's'} waiting for DDNS`"
                     description="No updates have been received yet. Make sure your agent is configured.">
                     <template #actions>
-                        <UButton to="/domains" size="xs" variant="subtle">View setup guide</UButton>
+                        <UButton to="/domains" color="info" size="xs" variant="subtle">View setup guide</UButton>
                     </template>
                 </UAlert>
 

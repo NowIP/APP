@@ -379,11 +379,105 @@ export type GetDomainsDomainIdRecordsResponses = {
         data: Array<{
             id: number;
             domain_id: number;
-            subdomain: string;
-            type: 'A' | 'AAAA' | 'CNAME' | 'MX' | 'SRV' | 'TXT' | 'SPF' | 'CAA';
-            record_data: string | number | boolean | null | {
-                [key: string]: unknown;
-            } | Array<unknown>;
+            subdomain: string | '@';
+            type: 'A';
+            /**
+             * A Record
+             */
+            record_data: {
+                address: string;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'AAAA';
+            /**
+             * AAAA Record
+             */
+            record_data: {
+                address: string;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'CNAME';
+            /**
+             * CNAME Record
+             */
+            record_data: {
+                domain: string;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'MX';
+            /**
+             * MX Record
+             */
+            record_data: {
+                exchange: string;
+                priority: number;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'SRV';
+            /**
+             * SRV Record
+             */
+            record_data: {
+                priority: number;
+                weight: number;
+                port: number;
+                target: string;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'TXT';
+            /**
+             * TXT Record
+             */
+            record_data: {
+                data: string | Array<string>;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'SPF';
+            /**
+             * SPF Record
+             */
+            record_data: {
+                data: string | Array<string>;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'CAA';
+            /**
+             * CAA Record
+             */
+            record_data: {
+                flags: number;
+                tag: string;
+                value: string;
+                ttl?: number;
+            };
         }>;
     };
 };
@@ -393,33 +487,85 @@ export type GetDomainsDomainIdRecordsResponse = GetDomainsDomainIdRecordsRespons
 export type PostDomainsDomainIdRecordsData = {
     body?: {
         subdomain: string | '@';
-        type: 'A' | 'AAAA' | 'CNAME' | 'MX' | 'SRV' | 'TXT' | 'SPF' | 'CAA';
+        type: 'A';
+        /**
+         * A Record
+         */
         record_data: {
             address: string;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain: string | '@';
+        type: 'AAAA';
+        /**
+         * AAAA Record
+         */
+        record_data: {
             address: string;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain: string | '@';
+        type: 'CNAME';
+        /**
+         * CNAME Record
+         */
+        record_data: {
             domain: string;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain: string | '@';
+        type: 'MX';
+        /**
+         * MX Record
+         */
+        record_data: {
             exchange: string;
             priority: number;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain: string | '@';
+        type: 'SRV';
+        /**
+         * SRV Record
+         */
+        record_data: {
             priority: number;
             weight: number;
             port: number;
             target: string;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain: string | '@';
+        type: 'TXT';
+        /**
+         * TXT Record
+         */
+        record_data: {
             data: string | Array<string>;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain: string | '@';
+        type: 'SPF';
+        /**
+         * SPF Record
+         */
+        record_data: {
             data: string | Array<string>;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain: string | '@';
+        type: 'CAA';
+        /**
+         * CAA Record
+         */
+        record_data: {
             flags: number;
             tag: string;
             value: string;
@@ -533,11 +679,105 @@ export type GetDomainsDomainIdRecordsRecordIdResponses = {
         data: {
             id: number;
             domain_id: number;
-            subdomain: string;
-            type: 'A' | 'AAAA' | 'CNAME' | 'MX' | 'SRV' | 'TXT' | 'SPF' | 'CAA';
-            record_data: string | number | boolean | null | {
-                [key: string]: unknown;
-            } | Array<unknown>;
+            subdomain: string | '@';
+            type: 'A';
+            /**
+             * A Record
+             */
+            record_data: {
+                address: string;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'AAAA';
+            /**
+             * AAAA Record
+             */
+            record_data: {
+                address: string;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'CNAME';
+            /**
+             * CNAME Record
+             */
+            record_data: {
+                domain: string;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'MX';
+            /**
+             * MX Record
+             */
+            record_data: {
+                exchange: string;
+                priority: number;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'SRV';
+            /**
+             * SRV Record
+             */
+            record_data: {
+                priority: number;
+                weight: number;
+                port: number;
+                target: string;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'TXT';
+            /**
+             * TXT Record
+             */
+            record_data: {
+                data: string | Array<string>;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'SPF';
+            /**
+             * SPF Record
+             */
+            record_data: {
+                data: string | Array<string>;
+                ttl?: number;
+            };
+        } | {
+            id: number;
+            domain_id: number;
+            subdomain: string | '@';
+            type: 'CAA';
+            /**
+             * CAA Record
+             */
+            record_data: {
+                flags: number;
+                tag: string;
+                value: string;
+                ttl?: number;
+            };
         };
     };
 };
@@ -547,33 +787,85 @@ export type GetDomainsDomainIdRecordsRecordIdResponse = GetDomainsDomainIdRecord
 export type PutDomainsDomainIdRecordsRecordIdData = {
     body?: {
         subdomain?: string | '@';
-        type?: 'A' | 'AAAA' | 'CNAME' | 'MX' | 'SRV' | 'TXT' | 'SPF' | 'CAA';
-        record_data?: {
+        type: 'A';
+        /**
+         * A Record
+         */
+        record_data: {
             address: string;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain?: string | '@';
+        type: 'AAAA';
+        /**
+         * AAAA Record
+         */
+        record_data: {
             address: string;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain?: string | '@';
+        type: 'CNAME';
+        /**
+         * CNAME Record
+         */
+        record_data: {
             domain: string;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain?: string | '@';
+        type: 'MX';
+        /**
+         * MX Record
+         */
+        record_data: {
             exchange: string;
             priority: number;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain?: string | '@';
+        type: 'SRV';
+        /**
+         * SRV Record
+         */
+        record_data: {
             priority: number;
             weight: number;
             port: number;
             target: string;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain?: string | '@';
+        type: 'TXT';
+        /**
+         * TXT Record
+         */
+        record_data: {
             data: string | Array<string>;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain?: string | '@';
+        type: 'SPF';
+        /**
+         * SPF Record
+         */
+        record_data: {
             data: string | Array<string>;
             ttl?: number;
-        } | {
+        };
+    } | {
+        subdomain?: string | '@';
+        type: 'CAA';
+        /**
+         * CAA Record
+         */
+        record_data: {
             flags: number;
             tag: string;
             value: string;
