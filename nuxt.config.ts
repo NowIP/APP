@@ -10,13 +10,6 @@ export default defineNuxtConfig({
 		'~/assets/css/main.css',
 	],
 
-	serverHandlers: process.env.NODE_ENV === 'development' && process.env.USE_DEV_PROXY === 'true' ? [
-		{
-			route: '/api/proxy/**',
-			handler: './dev/proxy.ts'
-		}
-	] : [],
-
 	nitro: {
 		preset: 'bun',
 
