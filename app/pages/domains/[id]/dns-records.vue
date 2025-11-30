@@ -653,12 +653,13 @@ const copyRecord = async (record: DomainRecord) => {
                 </template>
 
                 <div class="grid gap-4 md:grid-cols-4">
-                    <UFormField name="subdomain" label="Host" class="md:col-span-1" required>
-                        <UInput v-model="recordState.subdomain" placeholder="@" />
-                    </UFormField>
 
                     <UFormField name="type" label="Type" class="md:col-span-1" required>
                         <USelect v-model="recordState.type" :items="recordTypeOptions" />
+                    </UFormField>
+                    
+                    <UFormField name="subdomain" label="Host" class="md:col-span-1" required>
+                        <UInput v-model="recordState.subdomain" placeholder="@" />
                     </UFormField>
 
                     <UFormField name="ttl" label="TTL (seconds)" class="md:col-span-2">
