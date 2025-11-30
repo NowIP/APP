@@ -78,6 +78,49 @@ async function onSubmit(event: FormSubmitEvent<PasswordSchema>) {
 	}
 }
 
+const deleteAccountOpen = ref(false);
+const deletingAccount = ref(false);
+
+async function handleDeleteAccount() {
+	deletingAccount.value = true;
+	try {
+		const result = await useAPI().deleteAccount({
+			ignoreResponseError: true
+		});
+
+		if (result.success) {
+			UserStore.clear();
+			useCookie("session_token").value = null;
+
+			toast.add({
+				title: 'Account deleted',
+				description: 'Your account has been permanently deleted.',
+				icon: 'i-lucide-check',
+				color: 'success'
+			});
+
+			navigateTo('/auth/login');
+		} else {
+			toast.add({
+				title: 'Error',
+				description: result.message || 'An error occurred while deleting your account.',
+				icon: 'i-lucide-alert-circle',
+				color: 'error'
+			});
+		}
+	} catch (error) {
+		toast.add({
+			title: 'Error',
+			description: 'An unexpected error occurred.',
+			icon: 'i-lucide-alert-circle',
+			color: 'error'
+		});
+	} finally {
+		deletingAccount.value = false;
+		deleteAccountOpen.value = false;
+	}
+}
+
 </script>
 
 <template>
@@ -103,7 +146,37 @@ async function onSubmit(event: FormSubmitEvent<PasswordSchema>) {
 		description="No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently."
 		class="from-error/10 from-5% to-default">
 		<template #footer>
-			<UButton label="Delete account" color="error" />
+			<UModal v-model:open="deleteAccountOpen">
+				<UButton label="Delete account" color="error" />
+
+				<template #content>
+					<UCard>
+						<template #header>
+							<div class="flex items-center gap-2">
+								<UIcon name="i-lucide-alert-triangle" class="text-error h-5 w-5" />
+								<h3 class="text-lg font-semibold">Delete Account</h3>
+							</div>
+						</template>
+
+						<p class="text-sm text-default-600">
+							Are you sure you want to delete your account? This action is permanent and cannot be undone.
+							All your domains, DNS records, and settings will be permanently deleted.
+						</p>
+
+						<template #footer>
+							<div class="flex justify-end gap-2">
+								<UButton label="Cancel" color="neutral" variant="ghost" @click="deleteAccountOpen = false" />
+								<UButton 
+									label="Delete permanently" 
+									color="error" 
+									:loading="deletingAccount"
+									@click="handleDeleteAccount" 
+								/>
+							</div>
+						</template>
+					</UCard>
+				</template>
+			</UModal>
 		</template>
 	</UPageCard>
 </template>

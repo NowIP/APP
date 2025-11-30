@@ -3,8 +3,6 @@ import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 import { UserStore } from '../../utils/stores/userStore';
 
-const fileRef = ref<HTMLInputElement>()
-
 const profileSchema = z.object({
 	username: z.string().trim()
 		.min(5, 'Must be at least 5 characters')

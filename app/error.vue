@@ -1,7 +1,13 @@
+<script setup lang="ts">
+defineProps<{
+    error: {
+        statusCode: number;
+        statusMessage?: string;
+        message?: string;
+    };
+}>();
+</script>
+
 <template>
-    <UError :error="{
-        statusCode: 404,
-        statusMessage: 'Page not found',
-        message: 'The page you are looking for does not exist.'
-    }" />
+    <UError :error="error" />
 </template>
