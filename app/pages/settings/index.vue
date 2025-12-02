@@ -27,9 +27,9 @@ const toast = useToast()
 async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
 
 	try {
-		const result = await useAPI().putAccount({
+		const result = await useAPI((api) => api.putAccount({
 			body: event.data
-		});
+		}));
 
 		if (result.success) {
 			toast.add({

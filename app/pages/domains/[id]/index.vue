@@ -62,9 +62,10 @@ const handleCreate = async (event: FormSubmitEvent<DomainForm>) => {
 
 	try {
 		const subdomain = normalizeSubdomain(event.data.subdomain)
-		const result = await useAPI().postDomains({
+
+		const result = await useAPI((api) => api.postDomains({
 			body: { subdomain }
-		})
+		}));
 
 		if (result.success) {
 			toast.add({
@@ -107,10 +108,10 @@ const handleGeneralSubmit = async (event: FormSubmitEvent<DomainForm>) => {
 
 	try {
 		const subdomain = normalizeSubdomain(event.data.subdomain)
-		const result = await useAPI().putDomainsDomainId({
+		const result = await useAPI((api) => api.putDomainsDomainId({
 			path: { domainID: domainId },
 			body: { subdomain }
-		})
+		}));
 
 		if (result.success) {
 			toast.add({

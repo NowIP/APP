@@ -28,9 +28,11 @@ const fetchDomain = async () => {
         return;
     }
 
-    const result = await useAPI().getDomainsDomainId({
-        ignoreResponseError: true,
-        path: { domainID }
+    const result = await useAPI((api) => {
+        return api.getDomainsDomainId({
+            ignoreResponseError: true,
+            path: { domainID }
+        });
     });
 
     if (!result.success) {

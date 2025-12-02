@@ -16,7 +16,9 @@ export class DomainStore {
     }
 
     static async fetchAndSet() {
-        const result = await useAPI().getDomains({});
+        const result = await useAPI((api) => {
+            return api.getDomains({});
+        });
         if (result.success) {
             this.set(result.data);
         }

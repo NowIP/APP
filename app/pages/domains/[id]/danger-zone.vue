@@ -18,11 +18,13 @@ async function deleteDomain() {
 
     try {
 
-        const response = await useAPI().deleteDomainsDomainId({
-            path: {
-                domainID
-            },
-            ignoreResponseError: true
+        const response = await useAPI((api) => {
+            return api.deleteDomainsDomainId({
+                path: {
+                    domainID
+                },
+                ignoreResponseError: true
+            });
         });
 
         if (response && response.success === true) {

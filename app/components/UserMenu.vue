@@ -19,7 +19,9 @@ const user = ref({
 
 async function logout() {
 	try {
-		const result = await useAPI().postAuthLogout({});
+		const result = await useAPI((api) => {
+			return api.postAuthLogout({});
+		});
 
 		UserStore.clear();
 

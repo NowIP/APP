@@ -40,10 +40,10 @@ const validate = (state: Partial<PasswordSchema>): FormError[] => {
 async function onSubmit(event: FormSubmitEvent<PasswordSchema>) {
 
 	try {
-		const result = await useAPI().putAccountPassword({
+		const result = await useAPI((api) => api.putAccountPassword({
 			body: event.data,
 			ignoreResponseError: true
-		});
+		}));
 
 		if (result.success) {
 			toast.add({

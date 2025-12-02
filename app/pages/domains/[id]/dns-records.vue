@@ -23,7 +23,6 @@ if (!domain || !domainId) {
     throw new Error('Domain context is missing.')
 }
 
-const api = useAPI()
 const toast = useToast()
 const { copy } = useClipboard()
 
@@ -443,10 +442,10 @@ const fetchRecords = async ({ silent }: FetchRecordsOptions = {}) => {
     loadError.value = null
 
     try {
-        const result = await api.getDomainsDomainIdRecords({
+        const result = await useAPI((api) => api.getDomainsDomainIdRecords({
             path: { domainID: domainId },
             ignoreResponseError: true
-        })
+        }));
 
         if (!result.success) {
             loadError.value = result.message || 'Unable to load records.'
@@ -499,11 +498,11 @@ const handleRecordSubmit = async (event: FormSubmitEvent<RecordForm>) => {
     try {
         const payload = buildPayload(event.data)
 
-        const result = await api.postDomainsDomainIdRecords({
+        const result = await useAPI((api) => api.postDomainsDomainIdRecords({
             path: { domainID: domainId },
             body: payload,
             ignoreResponseError: true
-        })
+        }));
 
         if (result.success) {
             toast.add({
@@ -544,13 +543,13 @@ const deleteRecord = async (recordId: number) => {
 
     deletingRecordId.value = recordId
     try {
-        const result = await api.deleteDomainsDomainIdRecordsRecordId({
+        const result = await useAPI((api) => api.deleteDomainsDomainIdRecordsRecordId({
             path: {
                 domainID: domainId,
                 recordID: String(recordId)
             },
             ignoreResponseError: true
-        })
+        }));
 
         if (result.success) {
             toast.add({

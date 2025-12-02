@@ -28,7 +28,9 @@ export class UserStore {
     }
 
     static async fetchAndSet() {
-        const result = await useAPI().getAccount({});
+        const result = await useAPI((api) => {
+            return api.getAccount({});
+        });
         if (result.success) {
             this.set(result.data);
         }
