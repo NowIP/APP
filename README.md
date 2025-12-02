@@ -35,7 +35,7 @@ API/  ─ Bun entrypoint, Hono routers (auth, domains, account, DDNSv2), Drizzle
 - **Node.js 20+** (or Bun) for the Nuxt app.
 - **Bun 1.1+** for the API and DNS server.
 - **SQLite** (bundled with Bun) and open TCP/UDP ports for DNS (defaults to 53).
-- Recommended package managers: `pnpm` for `APP/`, Bun for `API/`.
+- Recommended package manager: **Bun** for both `APP/` and `API/`.
 
 ## Quick Start (frontend)
 1. **Set up the backend first**
@@ -48,15 +48,15 @@ API/  ─ Bun entrypoint, Hono routers (auth, domains, account, DDNSv2), Drizzle
 3. **Install UI dependencies**
 	```bash
 	cd APP
-	pnpm install   # or npm/yarn/bun if preferred
+	bun install
 	```
 4. **Run the Nuxt dev server**
 	```bash
-	pnpm dev       # http://localhost:3000
+	bun run dev       # http://localhost:3000
 	```
 5. **Regenerate the API client when contracts change**
 	```bash
-	pnpm api-client:generate
+	bun run api-client:generate
 	```
 
 ## Environment Variables
@@ -71,24 +71,24 @@ API/  ─ Bun entrypoint, Hono routers (auth, domains, account, DDNSv2), Drizzle
 
 ## Working with the API & DNS
 - UI-side data fetching happens through the generated client in `app/api-client/*`, driven by the backend OpenAPI schema.
-- Whenever the backend contracts change, restart the API (to refresh `/docs/openapi`) and run `pnpm api-client:generate`.
+- Whenever the backend contracts change, restart the API (to refresh `/docs/openapi`) and run `bun run api-client:generate`.
 - For detailed backend endpoints, DDNS behavior, and DNS configuration, see [`API/README.md`](https://git.leicraftmc.de/NowIP/API/README.md).
 
 ## Frontend workflow (APP/)
-- `pnpm dev` – SSR dev server with Nuxt DevTools.
-- `pnpm build && pnpm preview` – production build & preview.
-- `pnpm api-client:generate` – regenerates `app/api-client/*` from the live OpenAPI schema; run whenever backend contracts change.
+- `bun run dev` – SSR dev server with Nuxt DevTools.
+- `bun run build && bun run preview` – production build & preview.
+- `bun run api-client:generate` – regenerates `app/api-client/*` from the live OpenAPI schema; run whenever backend contracts change.
 - `app/composables/useAPI.ts` keeps session cookies in sync and transparently redirects to `/auth/login` when needed.
 - Pages cover auth (`/auth/*`), domain dashboards (`/domains` + dynamic routes), DNS record editing, and account settings.
 
 ## Deployment Notes
-- Deploy the Nuxt app via Nitro (Bun preset already configured) or export a static build with `pnpm generate` if SSR is not required.
+- Deploy the Nuxt app via Nitro (Bun preset already configured) or export a static build with `bun run generate` if SSR is not required.
 - Configure runtime env vars (`NOWIP_API_URL`, etc.) in your hosting platform to point at the live API instance.
 - For backend/DNS deployment considerations (ports, SQLite, DNS records, etc.) refer to [`API/README.md`](https://git.leicraftmc.de/NowIP/API/README.md).
 
 ## Troubleshooting
 - **Auth redirects loop**: confirm the backend has `NOWIP_FRONTEND_URL` set correctly (see API README) and that `NOWIP_API_URL` points to it.
-- **Missing API types in the UI**: rerun `pnpm api-client:generate` after backend schema changes, then restart Nuxt.
+- **Missing API types in the UI**: rerun `bun run api-client:generate` after backend schema changes, then restart Nuxt.
 - **CORS/cookie issues**: the REST origin must match the backend config; double-check proxy settings or use `USE_DEV_PROXY=true` for remote APIs.
 - Backend-specific DNS/DDNS issues are documented in [`API/README.md`](https://git.leicraftmc.de/NowIP/API/README.md).
 
